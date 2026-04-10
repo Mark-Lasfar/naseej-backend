@@ -4833,13 +4833,15 @@ app.use((err, req, res, next) => {
 
 // ================ Start Server ================
 
+// تصدير الموديلات والتطبيق
 module.exports = { app, User, Product, Customer, Coupon, ShippingRate, Order, Invoice, Review };
 
+// التشغيل المحلي فقط (وليس على Vercel)
 if (require.main === module) {
-  if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log(`📋 API Documentation: http://localhost:${PORT}/api/health`);
-    });
-  }
+  // التشغيل على البيئة المحلية فقط
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📋 API Documentation: http://localhost:${PORT}/api/health`);
+  });
 }
